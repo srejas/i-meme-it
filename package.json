@@ -1,0 +1,20 @@
+{
+  "name": "i-meme-it",
+  "version": "1.0.0",
+  "description": "WDD330 Final Project",
+  "homepage": "https://github.com/srejas/i-meme-it#readme",
+  "bugs": {
+    "url": "https://github.com/srejas/i-meme-it/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srejas/i-meme-it.git"
+  },
+  "license": "ISC",
+  "author": "Spencer Rejas",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
