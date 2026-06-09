@@ -2,6 +2,9 @@
 * {
     font-family: 'Calibri Light', sans-serif;
     font-weight: 300;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Color Variables */
@@ -10,6 +13,13 @@
     --secondary-color: #8619B8;
     --background-color: #333333;
     --text-color: #ffffff;
+}
+
+/* Page Styles */
+body {
+  margin: 1.5rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* Search Bar Styles */
@@ -23,22 +33,36 @@
 #search-input {
   flex: 1 1 auto;
   min-width: 0;
+  padding: 0.5rem;
   width: 100%;
-  height: 40px;
+  height: 45px;
 }
+
+#search-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+/* Results Section Styles */
+#browse-results h2, #search-results h2 {
+      margin: 1rem 0;
+    }
 
 /* Meme Gallery Styles */
 .meme-gallery {
     columns: 6 12rem;
     list-style-type: none;
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 0;
     margin: 0;
 
     .meme-card {
       width: 100%;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
       list-style: none;
 
       img {
