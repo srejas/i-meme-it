@@ -6,7 +6,7 @@ const data = new DataServices();
 // Fetch the trending memes from the data service and store them in a variable.
 const trendingMemes = await data.getTrendingMemes();
 // Get the container element where the trending memes will be displayed.
-const trendingContainer = document.getElementById('browse-results').querySelector('ul');
+const browseResultsContainer = document.getElementById('browse-results').querySelector('ul');
 
 // Display the trending memes on the home page using the renderListWithTemplate method of the DisplayServices module.
-renderListWithTemplate(trendingMemes, resultsTemplate, trendingContainer);
+renderListWithTemplate(trendingMemes, resultsTemplate, browseResultsContainer);

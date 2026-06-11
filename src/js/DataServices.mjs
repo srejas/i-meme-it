@@ -22,7 +22,7 @@ export default class DataServices {
     // Method to search for memes based on user input. Returns a promise that resolves to an array of meme objects.
     async getSearchedMemes(searchTerm) {
         try {
-            const response = await fetch(searchURL + encodeURIComponent(searchTerm));
+            const response = await fetch(searchURL + searchTerm);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
