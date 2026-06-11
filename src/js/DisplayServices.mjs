@@ -1,4 +1,4 @@
-// A module for rendering lists of items to a specified DOM container using a template function. It accepts a list of items, a template function to generate HTML for each item, and a container element where the generated HTML will be inserted. It also allows for specifying the position of the inserted HTML and whether to clear the container before inserting new content.
+// A module for rendering lists of items to a specified DOM container using a template function. It accepts a list of items and a container element where the generated HTML will be inserted as arguments. It allows you to specify whether to clear the container before inserting new content and the position of the inserted HTML.
 export function renderListWithTemplate(list, container, clear = false, templateFn = resultsTemplate, position = 'afterbegin') {
     if (clear) {
         container.innerHTML = '';
