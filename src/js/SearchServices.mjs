@@ -1,8 +1,24 @@
-// Function to handle the search feature and display the results of the search. It accepts user input, a function for fetching data, and a function for displaying the results as arguments. It redirects to the search page if needed, then calls the compileSearchResults function to fetch the search results and renders them in the searchResultsContainer using the passed in displayFn.
+const SEARCH_QUERY_STORAGE_KEY = 'pendingSearchQuery';
+
+// Function to save the search query before redirecting to the search page. This preserves the user query while the browser navigates to the new page without using URL parameters.
+export function savePendingSearchQuery(searchString) {
+    sessionStorage.setItem(SEARCH_QUERY_STORAGE_KEY, searchString.trim());
+}
+
+// Function to read and remove the saved search query after the search page loads. This ensures the query is consumed only once and not reused on later page loads.
+export function consumePendingSearchQuery() {
+    const pending = sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY);
+    sessionStorage.removeItem(SEARCH_QUERY_STORAGE_KEY);
+    return pending;
+}
+
+// Function to handle the search feature and display the results of the search. It accepts user input, a function for fetching data, and a function for displaying the results as arguments.
 export async function handleSearch(userInput, fetchDataFn, displayFn) {
     const searchString = userInput.trim();
     if (location.pathname !== '/search') {
-        location.replace('/search');
+        savePendingSearchQuery(searchString);
+        location.assign('/search');
+        return;
     }
 
     const searchResultsContainer = document.getElementById('search-results').querySelector('ul');
@@ -14,7 +30,7 @@ export async function handleSearch(userInput, fetchDataFn, displayFn) {
     }
 }
 
-// Function to compile multiple search result promises into a single promise that resolves to an array of objects. It accepts a string and a function for fetching data as an arguments. The string is split by spaces into an array of individual search terms, which are then maped with the dataGatheringFn. The resulting array of promises is resolved and returned.
+// Function to compile multiple search result promises into a single promise that resolves to an array of objects. It accepts a string and a function for fetching data as arguments. The string is split by spaces into an array of individual search terms, which are then maped with the dataGatheringFn. The resulting array of promises is resolved and returned.
 export async function compileSearchResults(string, dataGatheringFn) {
     const searchTerms = string.toLowerCase().split(' ');
     const promises = searchTerms.map(term => dataGatheringFn(term));

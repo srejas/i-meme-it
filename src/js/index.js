@@ -1,6 +1,6 @@
 import DataServices from './DataServices.mjs';
-import { handleSearch, compileSearchResults } from './SearchServices.mjs';
-import { renderListWithTemplate, resultsTemplate } from './DisplayServices.mjs';
+import { handleSearch } from './SearchServices.mjs';
+import { renderListWithTemplate } from './DisplayServices.mjs';
 
 // Initialize a new instance of the DataServices class to make sure we're working with the most up-to-date data.
 const data = new DataServices();
