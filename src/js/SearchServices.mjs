@@ -1,22 +1,10 @@
-const SEARCH_QUERY_STORAGE_KEY = 'pendingSearchQuery';
-
-// Function to save the search query before redirecting to the search page. This preserves the user query while the browser navigates to the new page without using URL parameters.
-export function savePendingSearchQuery(searchString) {
-    sessionStorage.setItem(SEARCH_QUERY_STORAGE_KEY, searchString.trim());
-}
-
-// Function to read and remove the saved search query after the search page loads. This ensures the query is consumed only once and not reused on later page loads.
-export function consumePendingSearchQuery() {
-    const pending = sessionStorage.getItem(SEARCH_QUERY_STORAGE_KEY);
-    sessionStorage.removeItem(SEARCH_QUERY_STORAGE_KEY);
-    return pending;
-}
+import { savePayload } from "./DataServices.mjs";
 
 // Function to handle the search feature and display the results of the search. It accepts user input, a function for fetching data, and a function for displaying the results as arguments.
 export async function handleSearch(userInput, fetchDataFn, displayFn) {
     const searchString = userInput.trim();
     if (location.pathname !== '/search') {
-        savePendingSearchQuery(searchString);
+        savePayload(searchString);
         location.assign('/search');
         return;
     }

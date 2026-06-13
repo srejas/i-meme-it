@@ -1,6 +1,6 @@
-import DataServices from './DataServices.mjs';
-import { handleSearch, consumePendingSearchQuery } from './SearchServices.mjs';
+import DataServices, { consumePendingPayload } from './DataServices.mjs';
 import { renderListWithTemplate } from './DisplayServices.mjs';
+import { handleSearch } from './SearchServices.mjs';
 
 // Initialize a new instance of the DataServices class to make sure we're working with the most up-to-date data.
 export const data = new DataServices();
@@ -10,7 +10,7 @@ const searchButton = document.getElementById('search-button');
 // Get the search input element.
 const inputElement = document.getElementById('search-input');
 
-const pendingQuery = consumePendingSearchQuery();
+const pendingQuery = consumePendingPayload();
 if (pendingQuery && pendingQuery.replaceAll(' ', '').length >= 2) {
     inputElement.value = pendingQuery;
     await handleSearch(pendingQuery, data.getSearchedMemes, renderListWithTemplate);
