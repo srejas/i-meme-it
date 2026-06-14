@@ -14,17 +14,3 @@ renderListWithTemplate(trendingMemes, browseResultsContainer);
 
 // Initialize the search bar.
 await initSearchBar(data.getSearchedMemes);
-
-browseResultsContainer.addEventListener('click', (event) => {
-    const link = event.target.closest('a');
-    const meme = event.target.closest('img');
-
-    if (link) {
-        event.preventDefault();
-
-        const imgPayload = meme.src;
-        savePayload(imgPayload);
-        location.assign(link.href);
-    } return;
-
-})

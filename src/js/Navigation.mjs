@@ -24,6 +24,19 @@ export async function initSearchBar(dataSource, renderingFn = renderListWithTemp
                 await handleSearch(searchQuery, dataSource, renderingFn);
             }
         });
+
+        document.querySelector('.meme-gallery').addEventListener('click', (event) => {
+            const clickedMeme = event.target.closest('a');
+
+            if (clickedMeme) {
+                event.preventDefault();
+
+                const memePayload = clickedMeme.dataset.memeInfo;
+                savePayload(memePayload);
+                location.assign(clickedMeme.href);
+            } return;
+        })
+
     } return;
 }
 
