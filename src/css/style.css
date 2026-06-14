@@ -38,7 +38,7 @@ body {
   height: 45px;
 }
 
-#search-button {
+#search-button, #generate-button {
   background-color: var(--primary-color);
   color: var(--text-color);
   border: none;

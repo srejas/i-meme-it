@@ -16,3 +16,26 @@ export function resultsTemplate(result) {
         </a>
     </li>`;
 }
+
+export function buildEditorControls() {
+    return `
+    <div class="text-boxes">
+        <div class="box-row" data-box-id="0">
+            <div class="text-container">
+                <textarea id="top-text" class="text" placeholder="Top Text"></textarea>
+            </div>
+            <div class="text-settings">
+            </div>
+        </div>
+
+        <div class="box-row" data-box-id="1">
+            <div class="text-container">
+                <textarea id="bottom-text" class="text" placeholder="Bottom Text"></textarea>
+            </div>
+            <div class="text-settings">
+            </div>
+        </div>
+        <button id="generate-button">Meme It</button>
+    </div>
+    `;
+}
