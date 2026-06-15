@@ -25,6 +25,8 @@ export function buildEditorControls() {
                 <textarea id="top-text" class="text" placeholder="Top Text"></textarea>
             </div>
             <div class="text-settings">
+                <input type="color" id=topTextColor" value="#ffffff">
+                <input type="color" id=topBoarderColor" value="#000000">
             </div>
         </div>
 
@@ -33,6 +35,8 @@ export function buildEditorControls() {
                 <textarea id="bottom-text" class="text" placeholder="Bottom Text"></textarea>
             </div>
             <div class="text-settings">
+                <input type="color" id=topTextColor" value="#ffffff">
+                <input type="color" id=topBoarderColor" value="#000000">
             </div>
         </div>
         <button id="generate-button">Meme It</button>
