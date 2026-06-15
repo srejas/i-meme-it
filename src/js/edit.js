@@ -1,8 +1,7 @@
 import { buildEditorControls } from "./DisplayServices.mjs";
 import { consumePendingPayload } from "./DataServices.mjs";
 
-// For testing only:
+// Load in the saved meme object and store in a variable.
 const memeObject = JSON.parse(consumePendingPayload());
-//document.getElementById('meme-preview').innerHTML = `<img src='${memeObject.url}' alt="${memeObject.name}">`;
-
+// Build the editor controls on the page.
 document.getElementById('editor-controls').innerHTML = buildEditorControls();
