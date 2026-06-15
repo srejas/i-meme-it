@@ -138,9 +138,9 @@ body {
   }
 }
 
-/* Responsive breakpoint for mobile */
+/* Editor Container Mobile Styles */
 @media (max-width: 768px) {
-  .meme-generator-container {
+  #editor-container {
     flex-direction: column;
   }
 }
