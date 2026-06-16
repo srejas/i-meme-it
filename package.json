@@ -21,5 +21,10 @@
   "dependencies": {
     "parcel": "^2.16.4",
     "prettier": "^3.8.3"
+  },
+  "targets": {
+    "default": {
+      "outputFormat": "esmodule"
+    }
   }
 }
