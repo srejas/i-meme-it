@@ -21,26 +21,52 @@ export function memeCardTemplate(meme) {
 export function buildEditorControls() {
     return `
     <div class="text-boxes">
-        <div class="box-row" data-box-id="0">
+        <div class="box-row">
             <div class="text-container">
                 <textarea id="top-text" class="text" placeholder="Top Text"></textarea>
             </div>
             <div class="text-settings">
-                <input type="color" id=topTextColor" value="#ffffff">
-                <input type="color" id=topBoarderColor" value="#000000">
+                <input type="color" id="top-text-color" value="#ffffff">
+                <input type="color" id="top-border-color" value="#000000">
             </div>
         </div>
 
-        <div class="box-row" data-box-id="1">
+        <div class="box-row">
             <div class="text-container">
                 <textarea id="bottom-text" class="text" placeholder="Bottom Text"></textarea>
             </div>
             <div class="text-settings">
-                <input type="color" id=topTextColor" value="#ffffff">
-                <input type="color" id=topBoarderColor" value="#000000">
+                <input type="color" id="bottom-text-color" value="#ffffff">
+                <input type="color" id="bottom-border-color" value="#000000">
             </div>
         </div>
         <button id="generate-button">Meme It</button>
     </div>
     `;
+}
+
+// A function to draw text on a meme template in a canvas and render it. It accepts the meme template you will be adding the text to, the canvas element from the DOM, the type of drawing, the top text input from the user, the top text color, the top text border color, the bottom text input from the user, the bottom text color, and the bottom text border color as arguments.
+export function editMeme (memeTemplate, canvasElement, canvasContext, topTextInput, topTextFill, topTextBorder, bottomTextInput, bottomTextFill, bottomTextBorder) {
+    // Canvas creation and format
+    canvasContext.drawImage(memeTemplate, 0, 0, canvasElement.width, canvasElement.height);
+    canvasContext.textAlign = 'center';
+    canvasContext.font = 'bold 40px \'Calibri Light\', sans-serif';
+
+    // Top text box format
+    canvasContext.textBaseline = 'top';
+    canvasContext.fillStyle = topTextFill.value;
+    canvasContext.strokeStyle = topTextBorder.value;
+    canvasContext.lineWidth = 6;
+
+    canvasContext.strokeText(topTextInput.toUpperCase(), canvasElement.width / 2, 20);
+    canvasContext.fillText(topTextInput.toUpperCase(), canvasElement.width / 2, 20);
+
+    // Bottom text box format
+    canvasContext.textBaseline = 'bottom';
+    canvasContext.fillStyle = bottomTextFill.value;
+    canvasContext.strokeStyle = bottomTextBorder.value;
+    canvasContext.lineWidth = 6;
+
+    canvasContext.strokeText(bottomTextInput.toUpperCase(), canvasElement.width / 2, canvasElement.height - 20);
+    canvasContext.fillText(bottomTextInput.toUpperCase(), canvasElement.width / 2, canvasElement.height - 20);
 }
