@@ -11,7 +11,7 @@ export function renderListWithTemplate(list, container, clear = false, templateF
 export function memeCardTemplate(meme) {
     return `
     <li class="meme-card">
-        <a href="./edit" data-meme-info='${JSON.stringify(meme)}'>
+        <a href="/edit?id=${meme.id}" data-meme-info='${JSON.stringify(meme)}'>
             <img src="${meme.url}" alt="${meme.name}">
         </a>
     </li>`;
