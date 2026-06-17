@@ -70,3 +70,32 @@ export function editMeme (memeTemplate, canvasElement, canvasContext, topTextInp
     canvasContext.strokeText(bottomTextInput.toUpperCase(), canvasElement.width / 2, canvasElement.height - 20);
     canvasContext.fillText(bottomTextInput.toUpperCase(), canvasElement.width / 2, canvasElement.height - 20);
 }
+
+// Function to build and display a success message, and provide a download button, once your meme has been created. It accepts the converted image blob, the file name of the template used, and the target DOM buttom element as arguments.
+export function displayMemeSuccessMessage(imageBlob, baseFileName, generateButtonElement) {
+    // Update the button text with the success message and transition to not looks like a button.
+    generateButtonElement.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    generateButtonElement.innerText = 'Copied to Clipboard!';
+    generateButtonElement.style.backgroundColor = '#ffffff';
+    generateButtonElement.style.color = '#333333';
+
+    // Create the download button.
+    const downloadButton = document.createElement('button');
+    downloadButton.id = 'download-button';
+    downloadButton.innerText = 'Download Meme';
+
+    // Event listener to download the image when clicked. Button is removed after.
+    downloadButton.addEventListener('click', () => {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(imageBlob);
+      downloadLink.download = `${baseFileName.replace(/\s+/g, '-').toLowerCase()}-meme.png`;
+    
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    });
+
+    // Insert the download button into the DOM, right after the generate button.
+    generateButtonElement.parentNode.insertBefore(downloadButton, generateButtonElement.nextSibling);
+    return downloadButton;
+}

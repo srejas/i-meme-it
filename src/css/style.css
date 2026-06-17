@@ -28,28 +28,27 @@ body {
   align-items: stretch;
   width: 100%;
   gap: 1px;
-}
 
-#search-input {
-  flex: 1 1 auto;
-  min-width: 0;
-  padding: 0.5rem;
-  width: 100%;
-  height: 45px;
-  border-radius: 2px;
-}
+  #search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.5rem;
+    height: 45px;
+    border-radius: 2px;
+  }
 
-#search-button, #generate-button {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border: none;
-  padding: 0 0.5rem;
-  cursor: pointer;
-  border-radius: 2px;
+  #search-button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
 }
 
 /* Results Section Styles */
-#browse-results h2, #search-results h2 {
+h2 {
   margin: 1rem 0;
 }
 
@@ -58,14 +57,10 @@ body {
   columns: 6 12rem;
   list-style-type: none;
   gap: 0.5rem;
-  padding: 0;
-  margin: 0;
 
   .meme-card {
     width: 100%;
-    gap: 0.5rem;
     margin-bottom: 0.5rem;
-    list-style: none;
 
     img {
       width: 100%;
@@ -123,11 +118,11 @@ body {
           width: 100%;
           height: 60px;
           padding: 8px;
-          box-sizing: border-box;
           font-size: 16px;
           resize: vertical;
         }
       }
+
        /* Text Settings Styles */
       .text-settings {
         display: flex;
@@ -135,6 +130,59 @@ body {
         justify-content: space-between;
       }
     }
+
+    /* Generate Button Styles */
+    #generate-button {
+      display: block;
+      width: 50%;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      font-weight: 500;
+      font-size: 1.25rem;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+      &[disabled] {
+        cursor: default;
+      }
+    }
+
+    /* Download Button Styles */
+    #download-button {
+      display: block;
+      width: 50%;
+      margin-top: 12px;
+      padding: 10px 20px;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+      animation: slideInAndFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    
+      &:hover {
+        background-color: #4d0a6c;
+      }
+    }
+  }
+}
+
+/* Animation For Download Button Rendering */
+@keyframes slideInAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -142,5 +190,11 @@ body {
 @media (max-width: 768px) {
   #editor-container {
     flex-direction: column;
+
+    #editor-controls {
+      #generate-button, #download-button {
+        width: 100%;
+      }
+    }
   }
 }

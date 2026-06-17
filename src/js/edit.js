@@ -1,5 +1,5 @@
-import { buildEditorControls, editMeme } from "./DisplayServices.mjs";
-import { consumePendingPayload } from "./DataServices.mjs";
+import { buildEditorControls, editMeme, displayMemeSuccessMessage } from "./DisplayServices.mjs";
+import { consumePendingPayload, copyCanvasToClipboard } from "./DataServices.mjs";
 
 // Load in the saved meme object and store in a variable.
 const memeObject = JSON.parse(consumePendingPayload());
@@ -38,3 +38,48 @@ memeTemplate.onload = () => {
             topTextBorder, bottomTextElement.value, bottomTextFill, bottomTextBorder
         )})
     });
+
+// Get the meme it button.
+const generateButton = document.getElementById('generate-button');
+
+// Event listener to copy the created meme to the clipboard, display a success message that populates a download button, and handles the timing of it all when clicked.
+generateButton.addEventListener('click', async () => {
+    // Disable the button so it's not accidently pressed again when the new button populates.
+    generateButton.disabled = true; 
+    // Get the current button property values so they can be set to their starting state after the events.
+    const originalText = generateButton.innerText;
+    const originalBg = generateButton.style.backgroundColor;
+    const originalColor = generateButton.style.color;
+    const originalTransition = generateButton.style.transition; 
+
+    // Try copying the created blob image to the clipboard and displaying the success message. Catch any errors.
+    try {
+      const imageBlob = await copyCanvasToClipboard(canvas);    
+      const spawnedDownloadButton = displayMemeSuccessMessage(imageBlob, memeObject.name, generateButton);  
+
+      setTimeout(() => {
+        // Remove the download button from the DOM.
+        if (spawnedDownloadButton) {
+          spawnedDownloadButton.remove();
+        }
+
+        // Put everything back the way it was.
+        generateButton.innerText = originalText;
+        generateButton.style.backgroundColor = originalBg;
+        generateButton.style.color = originalColor;
+        generateButton.style.transition = originalTransition;
+        generateButton.disabled = false;
+      }, 7000);
+
+    } catch (error) {
+      console.error('Meme generation failure:', error);
+      alert('Could not copy image.');
+    
+      // Still put everything back the way it was if an error is caught.
+      generateButton.innerText = originalText;
+      generateButton.style.backgroundColor = originalBg;
+      generateButton.style.color = originalColor;
+      generateButton.style.transition = originalTransition;
+      generateButton.disabled = false;
+    }
+});
