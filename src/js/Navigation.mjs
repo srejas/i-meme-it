@@ -1,4 +1,3 @@
-import { savePayload } from "./DataServices.mjs";
 import { renderListWithTemplate } from "./DisplayServices.mjs";
 
 // Function to initialize the search bar. It accepts a data source from which you will conduct the search as an argument.
@@ -16,18 +15,6 @@ export async function initSearchBar(dataSource) {
             const searchQuery = inputElement.value.trim();
             if (searchQuery.length >= 2) {
                 await handleSearch(searchQuery, dataSource);
-            }
-        })
-
-        document.querySelector('.meme-gallery').addEventListener('click', (event) => {
-            const clickedMeme = event.target.closest('a');
-
-            if (clickedMeme) {
-                event.preventDefault();
-
-                const memePayload = clickedMeme.dataset.memeInfo;
-                savePayload(memePayload);
-                location.assign(clickedMeme.href);
             }
         })
 
