@@ -1,4 +1,70 @@
-// A module for rendering lists of items to a specified DOM container using a template function. It accepts a list of items and a container element where the generated HTML will be inserted as arguments. It allows you to specify whether to clear the container before inserting new content and the position of the inserted HTML.
+// Module for building the header and footer of each page. After which it attaches event listeners to handle the hidden upload URL dropdown.
+export function buildHeaderFooter() {
+    const logoURL = new URL('../img/header-logo.png', import.meta.url)
+
+    document.getElementById('base-header').innerHTML = 
+    `<a href="/" id="home-link">
+        <img src="${logoURL.href}" alt="Website logo">
+        <span>I Meme It</span>
+    </a>
+    <div class="upload-container">
+        <button id="upload-button">
+          Upload 
+          <span id="down-arrow"></span>
+        </button>
+    
+        <div id="upload-dropdown">
+          <input type="text" id="upload-url-input" placeholder="Paste image URL here...">
+          <button id="go-button">Go</button>
+        </div>
+    </div>`;
+    
+    document.getElementById('base-footer').innerHTML = 
+    `&copy;2026 | I Meme It - Final Project | Spencer Rejas | WDD330 | <a href="https://www.flaticon.com/free-icons/text-to-image" title="text to image icons">Text to image icons created by Azland Studio - Flaticon</a>
+    `;
+
+    // Grab the needed elements to make the upload URL dropdown feature work.
+    const uploadButton = document.getElementById('upload-button');
+    const uploadDropdown = document.getElementById('upload-dropdown');
+    const goButton = document.getElementById('go-button');
+    const uploadUrlInput = document.getElementById('upload-url-input');
+
+    // Event listeners to handle the visibility of the upload button dropdown input.
+    uploadButton.addEventListener('click', (event) => {
+      event.stopPropagation(); 
+      uploadDropdown.classList.toggle('active');
+      
+      if (uploadDropdown.classList.contains('active')) {
+        uploadUrlInput.focus(); 
+      }
+    });
+
+    uploadDropdown.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+
+    document.addEventListener('click', () => {
+      uploadDropdown.classList.remove('active');
+    });
+
+    // Event listener to move to the edit page with the user provided image URL.
+    goButton.addEventListener('click', () => {
+      const imageUrl = uploadUrlInput.value.trim();
+      if (imageUrl) {
+        // Adjust the image path if needed
+        let cleanUrl = imageUrl;
+        if (cleanUrl.startsWith('//')) {
+            cleanUrl = `https:${cleanUrl}`;
+        }
+        
+        // Encode the URL and redirect to the edit page with it.
+        const encodedUrl = encodeURIComponent(cleanUrl);
+        location.href = `/edit?src=${encodedUrl}&name=Custom%20Upload`;
+      }
+    });
+}
+
+// Module for rendering lists of items to a specified DOM container using a template function. It accepts a list of items and a container element where the generated HTML will be inserted as arguments. It allows you to specify whether to clear the container before inserting new content and the position of the inserted HTML.
 export function renderListWithTemplate(list, container, clear = false, templateFn = memeCardTemplate, position = 'afterbegin') {
     if (clear) {
         container.innerHTML = '';
@@ -7,12 +73,16 @@ export function renderListWithTemplate(list, container, clear = false, templateF
     container.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
-// A template function for rendering a meme card. It takes a meme object and returns an HTML string representing a list item with the object itself, it's image, and name.
+// A template function for rendering a meme card. It takes a meme object, encodes it's URL and name, and returns an HTML string representing it's image and name, with the encoded information in the redirect address.
 export function memeCardTemplate(meme) {
+    // Encode the information for passing through a web address.
+    const encodedUrl = encodeURIComponent(meme.url);
+    const encodedName = encodeURIComponent(meme.name);
+
     return `
     <li class="meme-card">
-        <a href="/edit?id=${meme.id}" data-meme-info='${JSON.stringify(meme)}'>
-            <img src="${meme.url}" alt="${meme.name}">
+        <a href="/edit?src=${encodedUrl}&name=${encodedName}">
+            <img src="${meme.url}" alt="${meme.name}" referrerpolicy="no-referrer" loading="lazy">
         </a>
     </li>`;
 }
@@ -84,12 +154,13 @@ export function displayMemeSuccessMessage(imageBlob, baseFileName, generateButto
     downloadButton.id = 'download-button';
     downloadButton.innerText = 'Download Meme';
 
-    // Event listener to download the image when clicked. Button is removed after.
+    // Event listener to download the image when clicked.
     downloadButton.addEventListener('click', () => {
       const downloadLink = document.createElement('a');
       downloadLink.href = URL.createObjectURL(imageBlob);
       downloadLink.download = `${baseFileName.replace(/\s+/g, '-').toLowerCase()}-meme.png`;
     
+      // Remove the download button once it's done.
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);

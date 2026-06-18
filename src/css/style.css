@@ -17,9 +17,100 @@
 
 /* Page Styles */
 body {
-  margin: 1.5rem;
+  margin: 0.5rem 1.5rem 1.5rem;
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+/* Header Styles */
+#base-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  #home-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .upload-container {
+    position: relative;
+    display: inline-block;
+
+    #upload-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+
+      #down-arrow {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid var(--text-color);
+        display: inline-block;
+      }
+    }
+
+    /* Dropdown Container Styles */
+    #upload-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 5px);
+      right: 0;
+      background-color: #222222;
+      padding: 10px;
+      border-radius: 2px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      gap: 1px;
+      width: 320px;
+
+      &.active {
+        display: flex; 
+      }
+
+      #upload-url-input {
+        flex: 1;
+        padding: 6px 10px;
+        background-color: var(--background-color);
+        border: 1px solid #444444;
+        color: var(--text-color);
+        border-radius: 2px;
+        font-size: 0.85rem;
+        outline: none;
+
+        &:focus {
+          border-color: var(--primary-color);
+        }
+      }
+
+      #go-button {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        border: none;
+        padding: 6px 14px;
+        border-radius: 2px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.85rem;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
 }
 
 /* Search Bar Styles */
@@ -39,7 +130,8 @@ body {
 
   #search-button {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: var(--background-color);
+    font-weight: 500;
     border: none;
     padding: 0 0.5rem;
     cursor: pointer;
@@ -136,7 +228,7 @@ h2 {
       display: block;
       width: 50%;
       background-color: var(--primary-color);
-      color: var(--text-color);
+      color: var(--background-color);
       font-weight: 500;
       font-size: 1.25rem;
       padding: 0.5rem;
@@ -171,6 +263,15 @@ h2 {
         background-color: #4d0a6c;
       }
     }
+  }
+}
+
+/* Footer Styles */
+#base-footer {
+  margin-top: 1rem;
+
+  a {
+    color: var(--text-color);
   }
 }
 

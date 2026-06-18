@@ -1,7 +1,9 @@
 import { initSearchBar, handleSearch } from './Navigation.mjs';
-import { initSelectedMemeListener } from './index.js';
+import { buildHeaderFooter } from './DisplayServices.mjs';
 import DataServices from './DataServices.mjs';
 
+// Build the header and footer of the page.
+buildHeaderFooter();
 // Initialize a new instance of the DataServices class to make sure we're working with the most up-to-date data.
 const data = new DataServices();
 
@@ -14,8 +16,6 @@ const data = new DataServices();
         await triggerSearchFromURL();
     });
 })();
-
-initSelectedMemeListener();
 
 // Function to run the search if a search parameter exists in the URL.
 async function triggerSearchFromURL() {

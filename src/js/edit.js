@@ -1,8 +1,13 @@
-import { buildEditorControls, editMeme, displayMemeSuccessMessage } from "./DisplayServices.mjs";
-import { consumePendingPayload, copyCanvasToClipboard } from "./DataServices.mjs";
+import { buildHeaderFooter, buildEditorControls, editMeme, displayMemeSuccessMessage } from "./DisplayServices.mjs";
+import { copyCanvasToClipboard } from "./DataServices.mjs";
 
-// Load in the saved meme object and store in a variable.
-const memeObject = JSON.parse(consumePendingPayload());
+// Build the header and footer of the page.
+buildHeaderFooter();
+
+// Get the meme URL and name from the search parameters.
+const urlParams = new URLSearchParams(location.search);
+const memeUrl = urlParams.get('src');
+const memeName = urlParams.get('name');
 
 // Build the editor controls on the page.
 document.getElementById('editor-controls').innerHTML = buildEditorControls();
@@ -23,7 +28,8 @@ const bottomTextBorder = document.getElementById('bottom-border-color');
 // Create a new image from the meme object so that it can be read from the canvas.
 const memeTemplate = new Image();
 memeTemplate.crossOrigin = 'anonymous';
-memeTemplate.src = memeObject.url;
+// memeTemplate.src = memeObject.url;
+memeTemplate.src = memeUrl;
 
 // Event listener to initialize the meme editing canvas once the image has fully loaded.
 memeTemplate.onload = () => {
@@ -55,7 +61,7 @@ generateButton.addEventListener('click', async () => {
     // Try copying the created blob image to the clipboard and displaying the success message. Catch any errors.
     try {
       const imageBlob = await copyCanvasToClipboard(canvas);    
-      const spawnedDownloadButton = displayMemeSuccessMessage(imageBlob, memeObject.name, generateButton);  
+      const spawnedDownloadButton = displayMemeSuccessMessage(imageBlob, memeName, generateButton);  
 
       setTimeout(() => {
         // Remove the download button from the DOM.

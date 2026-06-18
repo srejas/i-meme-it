@@ -1,12 +1,14 @@
-import DataServices, { savePayload } from './DataServices.mjs';
-import { renderListWithTemplate } from './DisplayServices.mjs';
+import { buildHeaderFooter, renderListWithTemplate } from './DisplayServices.mjs';
 import { initSearchBar } from './Navigation.mjs';
+import DataServices from './DataServices.mjs';
 
+// Build the header and footer of the page.
+buildHeaderFooter();
 // Initialize a new instance of the DataServices class to make sure we're working with the most up-to-date data.
 const data = new DataServices();
-// Fetch the trending memes from the data service.
 
 (async () => {
+    // Fetch the trending memes from the data service.
     const trendingMemes = await data.getTrendingMemes();
     // Get the container element where the trending memes will be displayed.
     const browseResultsContainer = document.getElementById('browse-results').querySelector('ul');
@@ -16,20 +18,4 @@ const data = new DataServices();
 
     // Initialize the search bar.
     await initSearchBar(data.getSearchedMemes);
-
-    initSelectedMemeListener();
 })();
-
-export function initSelectedMemeListener() {
-    document.querySelector('.meme-gallery').addEventListener('click', (event) => {
-            const clickedMeme = event.target.closest('a');
-
-            if (clickedMeme) {
-                event.preventDefault();
-
-                const memePayload = clickedMeme.dataset.memeInfo;
-                savePayload(memePayload);
-                location.assign(clickedMeme.href);
-            }
-        })
-}
