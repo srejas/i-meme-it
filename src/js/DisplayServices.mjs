@@ -20,7 +20,7 @@ export function buildHeaderFooter() {
     </div>`;
     
     document.getElementById('base-footer').innerHTML = 
-    `&copy;2026 | I Meme It - Final Project | Spencer Rejas | WDD330 | <a href="https://www.flaticon.com/free-icons/text-to-image" title="text to image icons">Text to image icons created by Azland Studio - Flaticon</a>
+    `&copy;2026 | I Meme It | Spencer Rejas | WDD330 - Final Project | <a href="https://www.flaticon.com/free-icons/text-to-image" title="text to image icons">Text to image icons created by Azland Studio - Flaticon</a>
     `;
 
     // Grab the needed elements to make the upload URL dropdown feature work.
